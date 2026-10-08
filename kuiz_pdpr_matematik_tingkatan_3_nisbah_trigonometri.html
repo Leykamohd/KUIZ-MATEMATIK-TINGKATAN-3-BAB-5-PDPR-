@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kuiz PdPR Matematik Tingkatan 3: Nisbah Trigonometri</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                    },
+                    colors: {
+                        pastelBlue: '#e8f4f8',
+                        brandBlue: '#3a7bd5',
+                        brandPurple: '#6a11cb',
+                        accentDark: '#1e293b'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: linear-gradient(135deg, #f0f7ff 0%, #e8f4f8 50%, #f3e8ff 100%);
+            min-height: 100vh;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.05);
+        }
+        .gradient-btn {
+            background: linear-gradient(90deg, #3a7bd5 0%, #6a11cb 100%);
+            transition: all 0.3s ease;
+        }
+        .gradient-btn:hover {
+            opacity: 0.95;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(106, 17, 203, 0.25);
+        }
+        .option-card {
+            transition: all 0.2s ease;
+        }
+        .option-card:hover {
+            border-color: #3a7bd5;
+            background-color: #f0f7ff;
+        }
+        .option-card.selected {
+            border-color: #6a11cb;
+            background-color: #f3e8ff;
+            box-shadow: 0 0 0 2px #6a11cb;
+        }
+        @media print {
+            .no-print { display: none !important; }
+            .print-only { display: block !important; }
+            body { background: white; }
+            .glass-card { box-shadow: none; border: none; }
+        }
+    </style>
+</head>
+<body class="text-slate-800 p-3 sm:p-6 md:p-8">
+
+    <div class="max-w-4xl mx-auto">
+        <!-- Header -->
+        <header class="text-center mb-6">
+            <div class="inline-flex items-center gap-2 bg-purple-100 text-purple-700 px-4 py-1.5 rounded-full text-xs sm:text-sm font-semibold mb-3">
+                <i class="fa-solid fa-graduation-cap"></i> Modul Pembelajaran Digital KSSM
+            </div>
+            <h1 class="text-2xl sm:text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-700">
+                Kuiz PdPR Matematik Tingkatan 3
+            </h1>
+            <p class="text-slate-600 font-medium text-base sm:text-lg mt-1">
+                Tajuk: Nisbah Trigonometri
+            </p>
+        </header>
+
+        <!-- Dynamic Screen Container -->
+        <main id="app-container">
+
+            <!-- 1. WELCOME & REGISTRATION SCREEN -->
+            <div id="screen-welcome" class="glass-card rounded-2xl p-6 sm:p-10 text-center shadow-xl">
+                <div class="w-20 h-20 bg-gradient-to-tr from-blue-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-6 text-white text-3xl shadow-lg">
+                    <i class="fa-solid fa-shapes"></i>
+                </div>
+                <h2 class="text-xl sm:text-2xl font-bold mb-2 text-slate-800">Selamat Datang ke Kuiz Interaktif</h2>
+                <p class="text-slate-600 text-sm sm:text-base max-w-xl mx-auto mb-6">
+                    Sila isi maklumat diri anda di bawah untuk memulakan kuiz Nisbah Trigonometri. Kuiz ini mengandungi 15 soalan dan diperuntukkan masa selama 60 minit.
+                </p>
+
+                <form id="form-registration" onsubmit="startQuiz(event)" class="max-w-md mx-auto space-y-4 text-left">
+                    <div>
+                        <label class="block text-sm font-semibold text-slate-700 mb-1">Nama Penuh Murid:</label>
+                        <div class="relative">
+                            <i class="fa-regular fa-user absolute left-4 top-3.5 text-slate-400"></i>
+                            <input type="text" id="input-name" required placeholder="Contoh: Muhammad Amir" class="w-full pl-11 pr-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent text-sm sm:text-base">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-slate-700 mb-1">Kelas / Tingkatan:</label>
+                        <div class="relative">
+                            <i class="fa-solid fa-users-rectangle absolute left-4 top-3.5 text-slate-400"></i>
+                            <input type="text" id="input-class" required placeholder="Contoh: 3 Cemerlang" class="w-full pl-11 pr-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent text-sm sm:text-base">
+                        </div>
+                    </div>
+
+                    <!-- Info Box -->
+                    <div class="bg-blue-50 border border-blue-200 rounded-xl p-4 text-xs sm:text-sm text-blue-800 space-y-1.5 mt-4">
+                        <div class="font-bold flex items-center gap-2 text-blue-900">
+                            <i class="fa-solid fa-circle-info"></i> Panduan Kuiz:
+                        </div>
+                        <p>• <b>Bahagian A:</b> Kenali Nisbah Trigonometri (Soalan 1 - 5)</p>
+                        <p>• <b>Bahagian B:</b> Pengiraan Nisbah Trigonometri (Soalan 6 - 12)</p>
+                        <p>• <b>Bahagian C:</b> Aplikasi & Penyelesaian Masalah (Soalan 13 - 15)</p>
+                        <p>• Masa menjawab disyorkan: <b>60 Minit</b>.</p>
+                    </div>
+
+                    <button type="submit" class="w-full gradient-btn text-white font-bold py-3.5 px-6 rounded-xl text-base shadow-lg mt-6 flex items-center justify-center gap-2">
+                        <span>Mula Kuiz Sekarang</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </form>
+            </div>
+
+            <!-- 2. QUIZ INTERFACE SCREEN -->
+            <div id="screen-quiz" class="hidden space-y-4">
+                <!-- Status & Timer Bar -->
+                <div class="glass-card rounded-xl p-4 flex flex-wrap items-center justify-between gap-4">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-lg bg-blue-100 text-blue-600 flex items-center justify-center font-bold">
+                            <i class="fa-regular fa-clock"></i>
+                        </div>
+                        <div>
+                            <span class="text-xs text-slate-500 uppercase font-semibold tracking-wider block">Baki Masa</span>
+                            <span id="timer-display" class="font-mono font-bold text-lg text-slate-800">60:00</span>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center gap-2">
+                        <span id="section-badge" class="px-3 py-1 bg-purple-100 text-purple-700 text-xs font-bold rounded-full">
+                            Bahagian A
+                        </span>
+                        <span class="text-sm font-semibold text-slate-600">
+                            Soalan <span id="current-index-display">1</span> daripada 15
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Progress Bar -->
+                <div class="w-full bg-slate-200 rounded-full h-2.5 overflow-hidden">
+                    <div id="progress-bar" class="bg-gradient-to-r from-blue-500 to-purple-600 h-2.5 rounded-full transition-all duration-300" style="width: 6.66%"></div>
+                </div>
+
+                <!-- Main Question Card -->
+                <div class="glass-card rounded-2xl p-5 sm:p-8 shadow-xl">
+                    <!-- Question Category Badge -->
+                    <div id="question-topic" class="text-xs font-bold text-blue-600 mb-2 uppercase tracking-wider">
+                        Kenali Nisbah Trigonometri
+                    </div>
+
+                    <!-- Question Text -->
+                    <h3 id="question-text" class="text-base sm:text-lg font-bold text-slate-800 mb-4 leading-relaxed">
+                        -- Text Soalan --
+                    </h3>
+
+                    <!-- SVG Diagram Container -->
+                    <div id="diagram-container" class="my-4 bg-slate-50 border border-slate-100 rounded-xl p-4 flex justify-center items-center min-h-[180px]">
+                        <!-- SVG dynamically inserted here -->
+                    </div>
+
+                    <!-- Answer Options -->
+                    <div id="options-container" class="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-6">
+                        <!-- Options dynamically generated -->
+                    </div>
+                </div>
+
+                <!-- Navigation Controls -->
+                <div class="flex items-center justify-between pt-2">
+                    <button id="btn-prev" onclick="prevQuestion()" class="px-5 py-2.5 rounded-xl border border-slate-300 bg-white hover:bg-slate-50 text-slate-700 font-semibold text-sm flex items-center gap-2 transition">
+                        <i class="fa-solid fa-chevron-left"></i>
+                        <span>Kembali</span>
+                    </button>
+
+                    <div class="flex items-center gap-2">
+                        <button id="btn-next" onclick="nextQuestion()" class="gradient-btn text-white px-6 py-2.5 rounded-xl font-semibold text-sm flex items-center gap-2">
+                            <span>Soalan Seterusnya</span>
+                            <i class="fa-solid fa-chevron-right"></i>
+                        </button>
+                        <button id="btn-submit" onclick="confirmSubmit()" class="hidden bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-2.5 rounded-xl font-semibold text-sm flex items-center gap-2 shadow-lg transition">
+                            <i class="fa-solid fa-paper-plane"></i>
+                            <span>Hantar Jawapan</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3. RESULT & REVIEW SCREEN -->
+            <div id="screen-result" class="hidden space-y-6">
+                <!-- Summary Header Card -->
+                <div class="glass-card rounded-2xl p-6 sm:p-8 text-center shadow-xl relative overflow-hidden">
+                    <div id="result-accent" class="absolute top-0 left-0 right-0 h-3 bg-gradient-to-r from-blue-500 to-purple-600"></div>
+
+                    <h2 class="text-2xl font-extrabold text-slate-800 mb-1">Keputusan Kuiz PdPR</h2>
+                    <p class="text-sm text-slate-500 mb-6">Nisbah Trigonometri — Matematik Tingkatan 3</p>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-2xl mx-auto mb-6">
+                        <div class="bg-blue-50 border border-blue-100 rounded-xl p-4">
+                            <span class="text-xs text-blue-600 font-bold uppercase tracking-wider block">Nama Murid</span>
+                            <span id="res-student-name" class="font-bold text-slate-800 text-base sm:text-lg">--</span>
+                        </div>
+                        <div class="bg-purple-50 border border-purple-100 rounded-xl p-4">
+                            <span class="text-xs text-purple-600 font-bold uppercase tracking-wider block">Kelas</span>
+                            <span id="res-student-class" class="font-bold text-slate-800 text-base sm:text-lg">--</span>
+                        </div>
+                        <div class="bg-slate-50 border border-slate-200 rounded-xl p-4">
+                            <span class="text-xs text-slate-500 font-bold uppercase tracking-wider block">Masa Digunakan</span>
+                            <span id="res-time-taken" class="font-bold text-slate-800 text-base sm:text-lg">--</span>
+                        </div>
+                    </div>
+
+                    <!-- Score Badge & Percentage -->
+                    <div class="inline-flex flex-col items-center justify-center p-6 bg-gradient-to-br from-slate-900 to-slate-800 text-white rounded-2xl shadow-xl min-w-[220px] my-2">
+                        <span class="text-xs text-slate-400 font-medium uppercase tracking-widest mb-1">Markah Keseluruhan</span>
+                        <div class="text-4xl sm:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400 my-1">
+                            <span id="res-score-num">0</span> / 15
+                        </div>
+                        <span id="res-percentage" class="text-lg font-bold text-amber-300">0%</span>
+                    </div>
+
+                    <!-- Motivation & Performance Banner -->
+                    <div id="res-feedback-box" class="mt-6 p-4 rounded-xl text-sm sm:text-base font-semibold max-w-2xl mx-auto">
+                        <!-- Feedback text dynamic -->
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="flex flex-wrap items-center justify-center gap-3 mt-6 no-print">
+                        <button onclick="window.print()" class="px-5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-900 text-white font-semibold text-sm flex items-center gap-2 shadow transition">
+                            <i class="fa-solid fa-print"></i> Cetak / Simpan Laporan
+                        </button>
+                        <button onclick="restartQuiz()" class="px-5 py-2.5 rounded-xl border border-slate-300 bg-white hover:bg-slate-50 text-slate-700 font-semibold text-sm flex items-center gap-2 shadow-sm transition">
+                            <i class="fa-solid fa-rotate-right"></i> Cuba Semula
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Topic Review Recommendation Card -->
+                <div id="res-recommendation-card" class="glass-card rounded-2xl p-6 shadow-md">
+                    <h3 class="text-base font-bold text-slate-800 mb-3 flex items-center gap-2">
+                        <i class="fa-solid fa-lightbulb text-amber-500"></i> Cadangan Ulang Kaji Topik
+                    </h3>
+                    <ul id="res-recommendation-list" class="space-y-2 text-sm text-slate-600">
+                        <!-- Dynamic recommendations -->
+                    </ul>
+                </div>
+
+                <!-- Detailed Answers & Explanations -->
+                <div class="space-y-4">
+                    <h3 class="text-lg font-bold text-slate-800 flex items-center gap-2 pl-1">
+                        <i class="fa-solid fa-list-check text-purple-600"></i> Semakan Jawapan & Langkah Pengiraan Lengkap
+                    </h3>
+                    
+                    <div id="detailed-answers-container" class="space-y-4">
+                        <!-- Dynamic full answer breakdown -->
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- Confirmation Modal -->
+    <div id="modal-confirm" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm hidden items-center justify-center p-4 z-50">
+        <div class="bg-white rounded-2xl p-6 max-w-md w-full shadow-2xl space-y-4">
+            <div class="w-12 h-12 rounded-full bg-amber-100 text-amber-600 flex items-center justify-center mx-auto text-xl">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+            </div>
+            <h3 class="text-lg font-bold text-center text-slate-800">Hantar Jawapan Kuiz?</h3>
+            <p id="modal-unanswered-msg" class="text-sm text-slate-600 text-center">
+                Adakah anda pasti mahu menghantar jawapan sekarang?
+            </p>
+            <div class="flex gap-3 pt-2">
+                <button onclick="closeModal()" class="w-1/2 py-2.5 border border-slate-300 rounded-xl text-slate-700 font-semibold text-sm hover:bg-slate-50">
+                    Batal
+                </button>
+                <button onclick="submitQuiz()" class="w-1/2 py-2.5 gradient-btn text-white rounded-xl font-semibold text-sm shadow">
+                    Ya, Hantar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- QUIZ QUESTIONS DATASET (15 Questions: 5 A, 7 B, 3 C) ---
+        const questions = [
+            // BAHAGIAN A (1 - 5)
+            {
+                id: 1,
+                section: "Bahagian A",
+                topic: "Kenali Nisbah Trigonometri",
+                question: "Berdasarkan segi tiga bersudut tegak PQR di bawah, manakah antara sisi berikut merupakan **HIPOTENUS**?",
+                svgType: "right_triangle_basic",
+                params: { labelA: "P", labelB: "Q", labelC: "R", anglePos: "Q", hyp: "PR", opp: "QR", adj: "PQ" },
+                options: ["Sisi PQ", "Sisi QR", "Sisi PR", "Sudut PQR"],
+                answer: 2, // Sisi PR
+                explanation: "Hipotenus ialah sisi yang paling panjang dalam segi tiga bersudut tegak dan sentiasa terletak **bertentangan dengan sudut 90°** (sudut tegak). Dalam rajah ini, sisi bertentangan dengan sudut tegak Q ialah **PR**."
+            },
+            {
+                id: 2,
+                section: "Bahagian A",
+                topic: "Kenali Nisbah Trigonometri",
+                question: "Rajah menunjukkan segi tiga ABC dengan sudut rujukan θ pada bucu C. Berdasarkan sudut θ, apakah **SISI BERTENTANGAN**?",
+                svgType: "right_triangle_theta",
+                params: { labelA: "A", labelB: "B", labelC: "C", thetaAt: "C", anglePos: "B" },
+                options: ["Sisi AC", "Sisi AB", "Sisi BC", "Sisi BAC"],
+                answer: 1, // Sisi AB
+                explanation: "Sisi bertentangan ialah sisi yang berada terus berhadapan dengan sudut rujukan θ. Memandangkan sudut θ berada di bucu C, maka sisi berhadapannya ialah **AB**."
+            },
+            {
+                id: 3,
+                section: "Bahagian A",
+                topic: "Kenali Nisbah Trigonometri",
+                question: "Dalam segi tiga bersudut tegak KLM dengan sudut rujukan θ pada bucu K, manakah merupakan **SISI BERSEBELAHAN**?",
+                svgType: "right_triangle_theta",
+                params: { labelA: "L", labelB: "M", labelC: "K", thetaAt: "K", anglePos: "M" },
+                options: ["Sisi KM", "Sisi LM", "Sisi KL", "Sisi LMK"],
+                answer: 2, // Sisi KL
+                explanation: "KM ialah hipotenus (bertentangan 90°). LM ialah sisi bertentangan θ. Oleh itu, **KL** ialah **sisi bersebelahan** yang terletak di sebelah sudut θ (bukan hipotenus)."
+            },
+            {
+                id: 4,
+                section: "Bahagian A",
+                topic: "Kenali Nisbah Trigonometri",
+                question: "Apakah formula takrifan yang betul bagi **kosinus sudut θ (cos θ)**?",
+                svgType: "formula_card",
+                options: [
+                    "cos θ = sisi bertentangan ÷ hipotenus",
+                    "cos θ = sisi bersebelahan ÷ hipotenus",
+                    "cos θ = sisi bertentangan ÷ sisi bersebelahan",
+                    "cos θ = hipotenus ÷ sisi bersebelahan"
+                ],
+                answer: 1, // bersebelahan / hipotenus
+                explanation: "Berdasarkan takrifan nisbah trigonometri:<br>• **sin θ** = bertentangan / hipotenus<br>• **cos θ** = bersebelahan / hipotenus<br>• **tan θ** = bertentangan / bersebelahan"
+            },
+            {
+                id: 5,
+                section: "Bahagian A",
+                topic: "Kenali Nisbah Trigonometri",
+                question: "Diberi nisbah tan θ = 3/4 bagi segi tiga bersudut tegak. Ini bermakna nisbah bagi:",
+                svgType: "formula_card",
+                options: [
+                    "sisi bersebelahan / hipotenus = 3/4",
+                    "sisi bertentangan / hipotenus = 3/4",
+                    "sisi bertentangan / sisi bersebelahan = 3/4",
+                    "hipotenus / sisi bertentangan = 3/4"
+                ],
+                answer: 2, // bertentangan / bersebelahan
+                explanation: "Takrifan **tan θ = sisi bertentangan ÷ sisi bersebelahan**. Oleh itu, nilai 3 mewakili nisbah sisi bertentangan dan 4 mewakili nisbah sisi bersebelahan."
+            },
+
+            // BAHAGIAN B (6 - 12)
+            {
+                id: 6,
+                section: "Bahagian B",
+                topic: "Pengiraan Nisbah Trigonometri",
+                question: "Berdasarkan segi tiga bersudut tegak ABC di bawah, hitungkan nilai **sin θ**.",
+                svgType: "right_triangle_values",
+                params: { labelA: "A", labelB: "B", labelC: "C", opp: "3 cm", adj: "4 cm", hyp: "5 cm", thetaAt: "C" },
+                options: ["3/5", "4/5", "3/4", "5/3"],
+                answer: 0, // 3/5
+                explanation: "• Sisi bertentangan = 3 cm<br>• Hipotenus = 5 cm<br>• **sin θ** = sisi bertentangan ÷ hipotenus = **3/5**"
+            },
+            {
+                id: 7,
+                section: "Bahagian B",
+                topic: "Pengiraan Nisbah Trigonometri",
+                question: "Cari nilai **cos θ** bagi segi tiga bersudut tegak di bawah.",
+                svgType: "right_triangle_values",
+                params: { labelA: "P", labelB: "Q", labelC: "R", opp: "5 cm", adj: "12 cm", hyp: "13 cm", thetaAt: "R" },
+                options: ["5/13", "12/13", "5/12", "13/12"],
+                answer: 1, // 12/13
+                explanation: "• Sisi bersebelahan = 12 cm<br>• Hipotenus = 13 cm<br>• **cos θ** = sisi bersebelahan ÷ hipotenus = **12/13**"
+            },
+            {
+                id: 8,
+                section: "Bahagian B",
+                topic: "Pengiraan Nisbah Trigonometri",
+                question: "Hitungkan nilai **tan θ** bagi segi tiga bersudut tegak XYZ di bawah.",
+                svgType: "right_triangle_values",
+                params: { labelA: "X", labelB: "Y", labelC: "Z", opp: "8 cm", adj: "15 cm", hyp: "17 cm", thetaAt: "Z" },
+                options: ["8/17", "15/17", "8/15", "15/8"],
+                answer: 2, // 8/15
+                explanation: "• Sisi bertentangan = 8 cm<br>• Sisi bersebelahan = 15 cm<br>• **tan θ** = sisi bertentangan ÷ sisi bersebelahan = **8/15**"
+            },
+            {
+                id: 9,
+                section: "Bahagian B",
+                topic: "Pengiraan Nisbah Trigonometri",
+                question: "Segi tiga PQR bersudut tegak di Q. Diberi PQ = 6 cm dan QR = 8 cm. Cari nilai **hipotenus PR** terlebih dahulu, kemudian tentukan nilai **sin θ** pada sudut R.",
+                svgType: "right_triangle_calc",
+                params: { labelA: "P", labelB: "Q", labelC: "R", oppVal: 6, adjVal: 8, thetaAt: "R" },
+                options: ["0.50", "0.60", "0.75", "0.80"],
+                answer: 1, // 0.60
+                explanation: "1. Gunakan Teorem Pythagoras untuk cari Hipotenus PR:<br>   PR = √(6² + 8²) = √(36 + 64) = √100 = **10 cm**.<br>2. Sisi bertentangan = 6 cm.<br>3. **sin θ** = 6 / 10 = **0.60**."
+            },
+            {
+                id: 10,
+                section: "Bahagian B",
+                topic: "Pengiraan Nisbah Trigonometri",
+                question: "Diberi cos θ = 8/10 bagi sebuah segi tiga bersudut tegak. Ringkaskan nisbah ini kepada bentuk termudah.",
+                svgType: "formula_card",
+                options: ["3/5", "4/5", "3/4", "8/5"],
+                answer: 1, // 4/5
+                explanation: "Mempermudahkan pecahan 8/10 dengan membahagikan pengangka dan penyebut dengan 2:<br>8 ÷ 2 = 4<br>10 ÷ 2 = 5<br>Oleh itu, bentuk termudah ialah **4/5**."
+            },
+            {
+                id: 11,
+                section: "Bahagian B",
+                topic: "Pengiraan Nisbah Trigonometri",
+                question: "Rajah menunjukkan segi tiga bersudut tegak dengan hipotenus 20 cm dan sisi bersebelahan 16 cm kepada sudut θ. Hitungkan panjang sisi bertentangan dan cari nilai **tan θ**.",
+                svgType: "right_triangle_hyp_adj",
+                params: { hypVal: 20, adjVal: 16 },
+                options: ["3/4 (0.75)", "4/3 (1.33)", "3/5 (0.60)", "4/5 (0.80)"],
+                answer: 0, // 3/4
+                explanation: "1. Sisi bertentangan = √(20² - 16²) = √(400 - 256) = √144 = **12 cm**.<br>2. **tan θ** = Sisi bertentangan ÷ Sisi bersebelahan = 12 / 16 = **3/4** atau **0.75**."
+            },
+            {
+                id: 12,
+                section: "Bahagian B",
+                topic: "Pengiraan Nisbah Trigonometri",
+                question: "Diberi tan θ = 5/12. Cari nilai **cos θ** bagi sudut rujukan yang sama.",
+                svgType: "formula_card",
+                options: ["5/13", "12/13", "13/12", "5/12"],
+                answer: 1, // 12/13
+                explanation: "1. Bertentangan = 5, Bersebelahan = 12.<br>2. Hipotenus = √(5² + 12²) = √(25 + 144) = √169 = **13**.<br>3. **cos θ** = Bersebelahan ÷ Hipotenus = **12/13**."
+            },
+
+            // BAHAGIAN C (13 - 15)
+            {
+                id: 13,
+                section: "Bahagian C",
+                topic: "Aplikasi & Penyelesaian Masalah",
+                question: "Aplikasi Tangga: Sebuah tangga sepanjang 5 meter bersandar pada dinding tegak. Jarak tapak tangga dari dinding ialah 3 meter. Jika sudut di antara tapak tangga dan tanah ialah θ, hitungkan nilai **cos θ**.",
+                svgType: "real_world_ladder",
+                params: { ladder: "5 m", ground: "3 m", height: "4 m" },
+                options: ["3/5", "4/5", "3/4", "4/3"],
+                answer: 0, // 3/5
+                explanation: "• Tangga membentuk hipotenus = 5 m.<br>• Jarak tanah ke dinding ialah sisi bersebelahan = 3 m.<br>• **cos θ** = Sisi Bersebelahan ÷ Hipotenus = **3/5**."
+            },
+            {
+                id: 14,
+                section: "Bahagian C",
+                topic: "Aplikasi & Penyelesaian Masalah",
+                question: "Tiang Bendera: Seorang murid berdiri 12 meter dari tapak tiang bendera. Tinggi tiang bendera ialah 9 meter. Berapakah nilai **tan θ** bagi sudut mendongak θ dari mata murid ke puncak tiang bendera?",
+                svgType: "real_world_flag",
+                params: { height: "9 m", dist: "12 m" },
+                options: ["3/5", "4/5", "3/4", "4/3"],
+                answer: 2, // 3/4
+                explanation: "• Tinggi tiang (sisi bertentangan) = 9 m.<br>• Jarak dari tiang (sisi bersebelahan) = 12 m.<br>• **tan θ** = Bertentangan ÷ Bersebelahan = 9 / 12 = **3/4**."
+            },
+            {
+                id: 15,
+                section: "Bahagian C",
+                topic: "Aplikasi & Penyelesaian Masalah",
+                question: "Papan Senget (Ramp): Sebuah papan senget dibina dengan panjang papan 10 meter dan tinggi 6 meter dari tanah. Hitungkan nilai **sin θ** bagi sudut kecondongan papan itu dengan tanah.",
+                svgType: "real_world_ramp",
+                params: { length: "10 m", height: "6 m" },
+                options: ["0.60", "0.80", "0.75", "1.25"],
+                answer: 0, // 0.60
+                explanation: "• Panjang papan (hipotenus) = 10 m.<br>• Tinggi ramp (sisi bertentangan) = 6 m.<br>• **sin θ** = Sisi Bertentangan ÷ Hipotenus = 6 / 10 = **0.60**."
+            }
+        ];
+
+        // --- APP STATE VARIABLES ---
+        let currentQuestionIndex = 0;
+        let userAnswers = new Array(questions.length).fill(null);
+        let studentName = "";
+        let studentClass = "";
+        let timerInterval = null;
+        let secondsElapsed = 0;
+        const TOTAL_QUESTIONS = questions.length;
+
+        // --- SVG DIAGRAM GENERATORS ---
+        function renderSVGDiagram(q) {
+            const container = document.getElementById('diagram-container');
+            
+            if (q.svgType === 'formula_card') {
+                container.innerHTML = `
+                    <div class="text-center p-4 bg-purple-50 border border-purple-100 rounded-xl w-full max-w-xs">
+                        <i class="fa-solid fa-calculator text-purple-600 text-3xl mb-2"></i>
+                        <p class="text-xs font-semibold text-purple-800">Uji Kefahaman Formulasi Nisbah Trigonometri</p>
+                    </div>
+                `;
+                return;
+            }
+
+            if (q.svgType === 'right_triangle_basic' || q.svgType === 'right_triangle_theta') {
+                const p = q.params;
+                container.innerHTML = `
+                    <svg width="220" height="160" viewBox="0 0 220 160" class="max-w-full h-auto">
+                        <!-- Right Triangle -->
+                        <polygon points="40,130 180,130 40,30" fill="#e0f2fe" stroke="#0284c7" stroke-width="3" stroke-linejoin="round"/>
+                        <!-- 90 Degree Marker -->
+                        <path d="M 40,115 L 55,115 L 55,130" fill="none" stroke="#0284c7" stroke-width="2"/>
+                        <!-- Labels -->
+                        <text x="25" y="30" font-weight="bold" fill="#0f172a" font-size="14">${p.labelA}</text>
+                        <text x="25" y="145" font-weight="bold" fill="#0f172a" font-size="14">${p.labelB}</text>
+                        <text x="190" y="145" font-weight="bold" fill="#0f172a" font-size="14">${p.labelC}</text>
+                        <!-- Theta Arc at vertex C -->
+                        <path d="M 150,130 A 30,30 0 0,0 160,115" fill="none" stroke="#6a11cb" stroke-width="2"/>
+                        <text x="142" y="122" font-weight="bold" fill="#6a11cb" font-size="14">θ</text>
+                    </svg>
+                `;
+                return;
+            }
+
+            if (q.svgType === 'right_triangle_values' || q.svgType === 'right_triangle_calc') {
+                const p = q.params;
+                const oppTxt = p.opp || `${p.oppVal} cm`;
+                const adjTxt = p.adj || `${p.adjVal} cm`;
+                const hypTxt = p.hyp || "? cm";
+
+                container.innerHTML = `
+                    <svg width="240" height="170" viewBox="0 0 240 170" class="max-w-full h-auto">
+                        <polygon points="50,140 190,140 50,30" fill="#f3e8ff" stroke="#6a11cb" stroke-width="3" stroke-linejoin="round"/>
+                        <path d="M 50,125 L 65,125 L 65,140" fill="none" stroke="#6a11cb" stroke-width="2"/>
+                        <text x="35" y="30" font-weight="bold" fill="#1e293b" font-size="13">${p.labelA}</text>
+                        <text x="35" y="155" font-weight="bold" fill="#1e293b" font-size="13">${p.labelB}</text>
+                        <text x="200" y="155" font-weight="bold" fill="#1e293b" font-size="13">${p.labelC}</text>
+                        <!-- Side Labels -->
+                        <text x="20" y="90" font-weight="600" fill="#0284c7" font-size="12">${oppTxt}</text>
+                        <text x="110" y="160" font-weight="600" fill="#0284c7" font-size="12">${adjTxt}</text>
+                        <text x="125" y="80" font-weight="700" fill="#d97706" font-size="12">${hypTxt}</text>
+                        <!-- Theta Arc -->
+                        <path d="M 160,140 A 30,30 0 0,0 170,125" fill="none" stroke="#2563eb" stroke-width="2"/>
+                        <text x="150" y="132" font-weight="bold" fill="#2563eb" font-size="13">θ</text>
+                    </svg>
+                `;
+                return;
+            }
+
+            if (q.svgType === 'right_triangle_hyp_adj') {
+                const p = q.params;
+                container.innerHTML = `
+                    <svg width="240" height="160" viewBox="0 0 240 160" class="max-w-full h-auto">
+                        <polygon points="50,130 190,130 50,30" fill="#ecfdf5" stroke="#059669" stroke-width="3"/>
+                        <path d="M 50,115 L 65,115 L 65,130" fill="none" stroke="#059669" stroke-width="2"/>
+                        <text x="20" y="85" font-weight="bold" fill="#dc2626" font-size="12">? cm</text>
+                        <text x="110" y="150" font-weight="600" fill="#0284c7" font-size="12">${p.adjVal} cm</text>
+                        <text x="125" y="75" font-weight="700" fill="#d97706" font-size="12">${p.hypVal} cm</text>
+                        <path d="M 160,130 A 30,30 0 0,0 170,115" fill="none" stroke="#2563eb" stroke-width="2"/>
+                        <text x="150" y="122" font-weight="bold" fill="#2563eb" font-size="13">θ</text>
+                    </svg>
+                `;
+                return;
+            }
+
+            if (q.svgType === 'real_world_ladder') {
+                const p = q.params;
+                container.innerHTML = `
+                    <svg width="240" height="170" viewBox="0 0 240 170" class="max-w-full h-auto">
+                        <!-- Wall & Ground -->
+                        <line x1="50" y1="20" x2="50" y2="140" stroke="#64748b" stroke-width="6"/>
+                        <line x1="40" y1="140" x2="210" y2="140" stroke="#334155" stroke-width="4"/>
+                        <!-- Ladder -->
+                        <line x1="50" y1="40" x2="180" y2="140" stroke="#d97706" stroke-width="5" stroke-dasharray="2,2"/>
+                        <!-- Annotations -->
+                        <text x="110" y="80" font-weight="bold" fill="#d97706" font-size="12">Tangga (${p.ladder})</text>
+                        <text x="90" y="160" font-weight="bold" fill="#0284c7" font-size="12">Tapak (${p.ground})</text>
+                        <path d="M 150,140 A 30,30 0 0,0 160,125" fill="none" stroke="#6a11cb" stroke-width="2"/>
+                        <text x="142" y="132" font-weight="bold" fill="#6a11cb" font-size="13">θ</text>
+                    </svg>
+                `;
+                return;
+            }
+
+            if (q.svgType === 'real_world_flag') {
+                const p = q.params;
+                container.innerHTML = `
+                    <svg width="240" height="170" viewBox="0 0 240 170" class="max-w-full h-auto">
+                        <!-- Flag pole -->
+                        <line x1="50" y1="30" x2="50" y2="140" stroke="#0284c7" stroke-width="4"/>
+                        <polygon points="50,30 85,42 50,55" fill="#ef4444"/>
+                        <line x1="40" y1="140" x2="200" y2="140" stroke="#334155" stroke-width="3"/>
+                        <!-- Sight Line -->
+                        <line x1="180" y1="140" x2="50" y2="30" stroke="#9333ea" stroke-width="2" stroke-dasharray="4"/>
+                        <!-- Text -->
+                        <text x="10" y="90" font-weight="bold" fill="#0284c7" font-size="12">${p.height}</text>
+                        <text x="100" y="158" font-weight="bold" fill="#475569" font-size="12">${p.dist}</text>
+                        <path d="M 150,140 A 30,30 0 0,0 160,125" fill="none" stroke="#9333ea" stroke-width="2"/>
+                        <text x="142" y="132" font-weight="bold" fill="#9333ea" font-size="13">θ</text>
+                    </svg>
+                `;
+                return;
+            }
+
+            if (q.svgType === 'real_world_ramp') {
+                const p = q.params;
+                container.innerHTML = `
+                    <svg width="240" height="160" viewBox="0 0 240 160" class="max-w-full h-auto">
+                        <polygon points="40,130 190,130 40,40" fill="#f1f5f9" stroke="#475569" stroke-width="2"/>
+                        <line x1="40" y1="40" x2="190" y2="130" stroke="#059669" stroke-width="5"/>
+                        <text x="110" y="75" font-weight="bold" fill="#059669" font-size="12">Papan (${p.length})</text>
+                        <text x="10" y="90" font-weight="bold" fill="#0284c7" font-size="12">${p.height}</text>
+                        <path d="M 160,130 A 30,30 0 0,0 170,115" fill="none" stroke="#6a11cb" stroke-width="2"/>
+                        <text x="150" y="122" font-weight="bold" fill="#6a11cb" font-size="13">θ</text>
+                    </svg>
+                `;
+                return;
+            }
+        }
+
+        // --- QUIZ LOGIC & CONTROLLER ---
+        function startQuiz(e) {
+            e.preventDefault();
+            studentName = document.getElementById('input-name').value.trim();
+            studentClass = document.getElementById('input-class').value.trim();
+
+            if (!studentName || !studentClass) return;
+
+            document.getElementById('screen-welcome').classList.add('hidden');
+            document.getElementById('screen-quiz').classList.remove('hidden');
+
+            // Start Timer
+            secondsElapsed = 0;
+            timerInterval = setInterval(() => {
+                secondsElapsed++;
+                const remaining = Math.max(0, 3600 - secondsElapsed);
+                const mins = Math.floor(remaining / 60);
+                const secs = remaining % 60;
+                document.getElementById('timer-display').innerText = 
+                    `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+                
+                if (remaining === 0) {
+                    clearInterval(timerInterval);
+                    alert("Masa 60 minit telah tamat! Jawapan anda akan dihantar secara automatik.");
+                    submitQuiz();
+                }
+            }, 1000);
+
+            renderQuestion();
+        }
+
+        function renderQuestion() {
+            const q = questions[currentQuestionIndex];
+
+            // Render Header Status
+            document.getElementById('current-index-display').innerText = currentQuestionIndex + 1;
+            document.getElementById('section-badge').innerText = q.section;
+            document.getElementById('question-topic').innerText = `${q.section} • ${q.topic}`;
+            document.getElementById('question-text').innerHTML = formatMathText(q.question);
+
+            // Progress Bar Width
+            const progressPercent = ((currentQuestionIndex + 1) / TOTAL_QUESTIONS) * 100;
+            document.getElementById('progress-bar').style.width = `${progressPercent}%`;
+
+            // Render SVG
+            renderSVGDiagram(q);
+
+            // Render Options
+            const optionsContainer = document.getElementById('options-container');
+            optionsContainer.innerHTML = '';
+
+            const optionLabels = ['A', 'B', 'C', 'D'];
+            q.options.forEach((opt, idx) => {
+                const isSelected = userAnswers[currentQuestionIndex] === idx;
+                const optBtn = document.createElement('button');
+                optBtn.type = 'button';
+                optBtn.className = `option-card w-full p-4 rounded-xl border text-left flex items-start gap-3 ${isSelected ? 'selected' : 'border-slate-200 bg-white'}`;
+                optBtn.onclick = () => selectOption(idx);
+
+                optBtn.innerHTML = `
+                    <span class="w-7 h-7 rounded-lg ${isSelected ? 'bg-purple-600 text-white' : 'bg-slate-100 text-slate-600'} font-bold text-xs flex items-center justify-center flex-shrink-0 mt-0.5">
+                        ${optionLabels[idx]}
+                    </span>
+                    <span class="text-sm sm:text-base font-semibold text-slate-700">${opt}</span>
+                `;
+                optionsContainer.appendChild(optBtn);
+            });
+
+            // Button States
+            document.getElementById('btn-prev').disabled = currentQuestionIndex === 0;
+            document.getElementById('btn-prev').classList.toggle('opacity-50', currentQuestionIndex === 0);
+
+            if (currentQuestionIndex === TOTAL_QUESTIONS - 1) {
+                document.getElementById('btn-next').classList.add('hidden');
+                document.getElementById('btn-submit').classList.remove('hidden');
+            } else {
+                document.getElementById('btn-next').classList.remove('hidden');
+                document.getElementById('btn-submit').classList.add('hidden');
+            }
+        }
+
+        function formatMathText(text) {
+            return text.replace(/\*\*(.*?)\*\*/g, '<b>$1</b>');
+        }
+
+        function selectOption(index) {
+            userAnswers[currentQuestionIndex] = index;
+            renderQuestion();
+        }
+
+        function nextQuestion() {
+            if (currentQuestionIndex < TOTAL_QUESTIONS - 1) {
+                currentQuestionIndex++;
+                renderQuestion();
+            }
+        }
+
+        function prevQuestion() {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                renderQuestion();
+            }
+        }
+
+        function confirmSubmit() {
+            const unanswered = userAnswers.filter(ans => ans === null).length;
+            const msg = unanswered > 0 
+                ? `Anda masih mempunyai <b>${unanswered} soalan belum dijawab</b>. Adakah anda pasti mahu menghantar sekarang?`
+                : `Adakah anda pasti mahu menghantar semua jawapan anda?`;
+            
+            document.getElementById('modal-unanswered-msg').innerHTML = msg;
+            document.getElementById('modal-confirm').classList.remove('hidden');
+            document.getElementById('modal-confirm').classList.add('flex');
+        }
+
+        function closeModal() {
+            document.getElementById('modal-confirm').classList.add('hidden');
+            document.getElementById('modal-confirm').classList.remove('flex');
+        }
+
+        function submitQuiz() {
+            closeModal();
+            clearInterval(timerInterval);
+
+            // Calculate Score
+            let correctCount = 0;
+            questions.forEach((q, idx) => {
+                if (userAnswers[idx] === q.answer) {
+                    correctCount++;
+                }
+            });
+
+            const percentage = Math.round((correctCount / TOTAL_QUESTIONS) * 100);
+
+            // Format Time Taken
+            const minsSpent = Math.floor(secondsElapsed / 60);
+            const secsSpent = secondsElapsed % 60;
+            const timeStr = `${minsSpent} minit ${secsSpent} saat`;
+
+            // Hide Quiz, Show Results
+            document.getElementById('screen-quiz').classList.add('hidden');
+            document.getElementById('screen-result').classList.remove('hidden');
+
+            // Populate Summary
+            document.getElementById('res-student-name').innerText = studentName;
+            document.getElementById('res-student-class').innerText = studentClass;
+            document.getElementById('res-time-taken').innerText = timeStr;
+            document.getElementById('res-score-num').innerText = correctCount;
+            document.getElementById('res-percentage').innerText = `${percentage}%`;
+
+            // Feedback Banner & Advice
+            const feedbackBox = document.getElementById('res-feedback-box');
+            let feedbackHTML = '';
+            let recommendations = [];
+
+            if (percentage >= 80) {
+                feedbackBox.className = "mt-6 p-4 rounded-xl text-sm sm:text-base font-semibold max-w-2xl mx-auto bg-emerald-50 text-emerald-800 border border-emerald-200";
+                feedbackHTML = `<i class="fa-solid fa-trophy text-amber-500 mr-2 text-lg"></i> Cemerlang! Syabas ${studentName}, anda sangat menguasai konsep Nisbah Trigonometri!`;
+                recommendations.push("Kekalkan prestasi cemerlang anda dan teruskan latihan bagi soalan aras KBAT.");
+            } else if (percentage >= 50) {
+                feedbackBox.className = "mt-6 p-4 rounded-xl text-sm sm:text-base font-semibold max-w-2xl mx-auto bg-blue-50 text-blue-800 border border-blue-200";
+                feedbackHTML = `<i class="fa-solid fa-thumbs-up text-blue-600 mr-2 text-lg"></i> Tahniah ${studentName}! Keputusan anda baik, namun masih ada ruang untuk ditingkatkan.`;
+                recommendations.push("Semak semula soalan yang salah terutamanya dalam pengiraan nisbah atau Teorem Pythagoras.");
+            } else {
+                feedbackBox.className = "mt-6 p-4 rounded-xl text-sm sm:text-base font-semibold max-w-2xl mx-auto bg-amber-50 text-amber-800 border border-amber-200";
+                feedbackHTML = `<i class="fa-solid fa-circle-exclamation text-amber-600 mr-2 text-lg"></i> Jangan putus asa ${studentName}! Teruskan usaha dan buat ulang kaji berfokus.`;
+                recommendations.push("Ulang kaji semula takrifan asas sisi bertentangan, bersebelahan dan hipotenus.");
+                recommendations.push("Pastikan anda mengingati formula asas: sin θ = O/H, cos θ = A/H, tan θ = O/A.");
+            }
+
+            feedbackBox.innerHTML = feedbackHTML;
+
+            // Recommendations List
+            const recList = document.getElementById('res-recommendation-list');
+            recList.innerHTML = '';
+            recommendations.forEach(rec => {
+                recList.innerHTML += `<li class="flex items-start gap-2"><i class="fa-solid fa-check text-purple-600 mt-1"></i> <span>${rec}</span></li>`;
+            });
+
+            // Detailed Answers Breakdown
+            const container = document.getElementById('detailed-answers-container');
+            container.innerHTML = '';
+
+            const optionLabels = ['A', 'B', 'C', 'D'];
+
+            questions.forEach((q, idx) => {
+                const userAns = userAnswers[idx];
+                const isCorrect = userAns === q.answer;
+
+                const card = document.createElement('div');
+                card.className = `glass-card rounded-2xl p-5 border-l-4 shadow-sm ${isCorrect ? 'border-l-emerald-500' : 'border-l-red-500'}`;
+
+                const userAnsText = userAns !== null ? `${optionLabels[userAns]}. ${q.options[userAns]}` : "<i>Tiada jawapan</i>";
+                const correctAnsText = `${optionLabels[q.answer]}. ${q.options[q.answer]}`;
+
+                card.innerHTML = `
+                    <div class="flex items-start justify-between gap-3 mb-2">
+                        <span class="text-xs font-bold px-2.5 py-1 rounded-full ${isCorrect ? 'bg-emerald-100 text-emerald-800' : 'bg-red-100 text-red-800'}">
+                            Soalan ${idx + 1} (${isCorrect ? 'Betul' : 'Salah'})
+                        </span>
+                        <span class="text-xs font-semibold text-slate-500">${q.section}</span>
+                    </div>
+
+                    <p class="font-bold text-slate-800 text-sm sm:text-base mb-3">${formatMathText(q.question)}</p>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs sm:text-sm mb-3">
+                        <div class="p-2.5 rounded-xl ${isCorrect ? 'bg-emerald-50 text-emerald-900 border border-emerald-100' : 'bg-red-50 text-red-900 border border-red-100'}">
+                            <b>Jawapan Anda:</b> ${userAnsText}
+                        </div>
+                        <div class="p-2.5 rounded-xl bg-blue-50 text-blue-900 border border-blue-100">
+                            <b>Jawapan Betul:</b> ${correctAnsText}
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-50 border border-slate-200 rounded-xl p-3 text-xs sm:text-sm text-slate-700 space-y-1">
+                        <div class="font-bold text-slate-800 flex items-center gap-1.5 mb-1">
+                            <i class="fa-solid fa-circle-info text-blue-600"></i> Langkah Pengiraan / Penerangan:
+                        </div>
+                        <p class="leading-relaxed">${q.explanation}</p>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function restartQuiz() {
+            currentQuestionIndex = 0;
+            userAnswers = new Array(questions.length).fill(null);
+            document.getElementById('screen-result').classList.add('hidden');
+            document.getElementById('screen-welcome').classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>
